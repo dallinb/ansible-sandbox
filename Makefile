@@ -13,3 +13,4 @@ before_script:
 
 script:
 	bundle exec rubocop -ES
+	pip show ansible-lint

@@ -1,12 +1,14 @@
 all: install before_script script
 
 install:
-	rvm install 2.5.0
-	rvm use 2.5.0
 	bundle install
+	pip install -r requirements.txt
 
 before_script:
+	ansible --version
+	ansible-lint --version
 	python --version
+	rubocop --version
 	ruby --version
 
 script:

@@ -1,0 +1,13 @@
+---
+# handlers file for common
+- name: restart ntp daemon
+  service:
+    enabled: yes
+    name: ntpd
+    state: restarted
+
+- name: restart postfix
+  service:
+    enabled: yes
+    name: postfix
+    state: restarted

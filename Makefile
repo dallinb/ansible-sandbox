@@ -8,4 +8,4 @@ before_script:
 	ruby --version
 
 script:
-	rubocop -ES
+	bundle exec rubocop -ES

@@ -5,6 +5,7 @@ group :test do
   gem 'kitchen-docker',              require: false
   gem 'kitchen-verifier-serverspec', require: false
   gem 'net-ssh',                     require: false
+  gem 'rubocop',                     require: false
   gem 'serverspec',                  require: false
   gem 'test-kitchen',                require: false
 end

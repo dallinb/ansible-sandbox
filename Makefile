@@ -13,4 +13,5 @@ before_script:
 
 script:
 	bundle exec rubocop -ES
-	pip show ansible-lint
+	ansible-lint -pv site.yml
+	bundle exec kitchen test

@@ -1,0 +1,7 @@
+---
+- name: 'Ansible Sandbox Playbook.'
+
+  hosts: all
+
+  roles:
+    - common

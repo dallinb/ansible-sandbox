@@ -1,0 +1,21 @@
+@startuml
+
+start
+
+:kitchen create;
+
+repeat
+  :kitchen converge;
+  note left
+    At this stage you could
+    access the container with
+    "kitchen login"
+  end note
+  :kitchen verify;
+repeat while (more testing?)
+
+:kitchen destroy;
+
+stop
+
+@enduml

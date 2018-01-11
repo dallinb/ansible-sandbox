@@ -1,0 +1,49 @@
+---
+# .kitchen.yml:  Test Kitchen configuration file.
+driver:
+  name: docker
+  use_sudo: false
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: centos/systemd
+      run_command: /usr/sbin/init
+      privileged: true
+      provision_command:
+        - yum install -y epel-release
+        - yum install -y python2-pip rsyslog initscripts
+        - pip install ansible==2.4.2.0
+        - sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config
+        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+        - sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config
+        - sed -i 's/#LogLevel INFO/LogLevel DEBUG/g' /etc/ssh/sshd_config
+        - systemctl enable rsyslog.service
+        - systemctl enable sshd.service
+
+provisioner:
+  ansible_inventory: inventories/kitchen
+  ansible_verbose: false
+  ansible_verbosity: 3
+  hosts: all
+  idempotency_test: true
+  name: ansible_playbook
+  require_ansible_repo: false
+  require_chef_for_busser: false
+  require_chef_omnibus: false
+  require_pip: false
+
+verifier:
+  name: serverspec
+  sudo_path: true
+
+suites:
+  - name: sandbox
+    verifier:
+      patterns:
+        - spec/*_spec.rb
+    provisioner:
+      playbook: site.yml
+    driver_config:
+      hostname: sandbox.local
+      instance_name: sandbox

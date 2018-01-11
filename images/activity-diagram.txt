@@ -1,0 +1,16 @@
+@startuml
+
+start
+
+:kitchen create;
+
+repeat
+  :kitchen converge;
+  :kitchen verify;
+repeat while (more testing?)
+
+:kitchen destroy;
+
+stop
+
+@enduml

@@ -29,7 +29,7 @@ For these steps to work on your local machine, you will need to have
 The file [`.travis.yml`](.travis.yml) configures the project to run on
 [TravisCI](https://travis-ci.org/dallinb/ansible-sandbox).  It has been written
 to cache the Ruby gems and Python packages to improve performance.  The
-Docker image is not cached as the is
+Docker image is not cached as this is
 [advised against](https://docs.travis-ci.com/user/caching/#Things-not-to-cache)
 in the TravisCI documentation.  The build installation and build steps for
 Travis are mirrored in the provided

@@ -1,7 +1,7 @@
 ---
 - name: 'Ansible Sandbox Playbook.'
+
   hosts: all
-  tasks:
-    - name: Add a user
-      user:
-        name: fbl01
+
+  roles:
+    - common

@@ -1,4 +1,7 @@
-all: install before_script script
+script:
+	bundle exec rubocop -ES
+	ansible-lint -pv site.yml
+	bundle exec kitchen test
 
 install:
 	bundle install
@@ -10,8 +13,3 @@ before_script:
 	python --version
 	rubocop --version
 	ruby --version
-
-script:
-	bundle exec rubocop -ES
-	ansible-lint -pv site.yml
-	bundle exec kitchen test

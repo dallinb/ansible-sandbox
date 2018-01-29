@@ -1,5 +1,16 @@
 # Change Log
 
+## [0.2.0](https://github.com/dallinb/ansible-sandbox/tree/0.2.0) (2018-01-29)
+[Full Changelog](https://github.com/dallinb/ansible-sandbox/compare/0.1.1...0.2.0)
+
+**Closed issues:**
+
+- Test Kitchen Suites Should Include "Check" Mode [\#5](https://github.com/dallinb/ansible-sandbox/issues/5)
+
+**Merged pull requests:**
+
+- Ensure a "Check Mode" Test is Available [\#6](https://github.com/dallinb/ansible-sandbox/pull/6) ([dallinb](https://github.com/dallinb))
+
 ## [0.1.1](https://github.com/dallinb/ansible-sandbox/tree/0.1.1) (2018-01-25)
 [Full Changelog](https://github.com/dallinb/ansible-sandbox/compare/0.1.0...0.1.1)
 

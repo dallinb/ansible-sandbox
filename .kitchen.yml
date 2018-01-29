@@ -26,7 +26,6 @@ provisioner:
   ansible_verbose: false
   ansible_verbosity: 3
   hosts: all
-  idempotency_test: true
   name: ansible_playbook
   require_ansible_repo: false
   require_chef_for_busser: false
@@ -38,11 +37,20 @@ verifier:
   sudo_path: true
 
 suites:
-  - name: sandbox
+  - name: apply
     verifier:
       patterns:
         - spec/*_spec.rb
     provisioner:
+      playbook: site.yml
+      idempotency_test: true
+    driver_config:
+      hostname: sandbox.local
+      instance_name: sandbox
+
+  - name: check
+    provisioner:
+      ansible_check: true
       playbook: site.yml
     driver_config:
       hostname: sandbox.local

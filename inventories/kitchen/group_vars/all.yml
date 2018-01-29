@@ -1,0 +1,11 @@
+---
+common_ntp_servers:
+  - 0.uk.pool.ntp.org
+  - 1.uk.pool.ntp.org
+  - 2.uk.pool.ntp.org
+  - 3.uk.pool.ntp.org
+
+common_users:
+  - { name: fbl01, comment: Fred Bloggs, email: fred.bloggs@example.com }
+  - { name: jdo01, comment: John Doe }
+  - { name: jbi74, state: absent }

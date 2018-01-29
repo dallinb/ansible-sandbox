@@ -1,0 +1,63 @@
+---
+# tasks file for common
+- name: Install packages
+  package:
+    name: "{{ item }}"
+  with_items:
+    - ntp-4.2.6p5-25.el7.centos.2.x86_64
+    - postfix-2.10.1-6.el7.x86_64
+
+- name: Configure users
+  user:
+    comment: "{{ item.comment | default('') }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+  when: common_users is defined
+  with_items: "{{ common_users }}"
+  no_log: True
+
+- name: Configure Postfix
+  template:
+    src: "postfix/{{ item }}.j2"
+    dest: "/etc/postfix/{{ item }}"
+  with_items:
+    - main.cf
+  notify:
+    - restart postfix
+
+- name: Email aliases (create/update)
+  lineinfile:
+    path: /etc/aliases
+    line: "{{ item.name }}: {{ item.email | default('/dev/null') }}"
+    regexp: "^{{ item.name }}:"
+  when:
+    - common_users is defined
+    - item.state is not defined or item.state == 'present'
+  with_items: "{{ common_users }}"
+  notify:
+    - restart postfix
+  no_log: True
+
+- name: Email aliases (delete)
+  lineinfile:
+    path: /etc/aliases
+    state: absent
+    regexp: "^{{ item.name }}:"
+  when:
+    - common_users is defined
+    - item.state is defined
+    - item.state == 'absent'
+  with_items: "{{ common_users }}"
+  notify:
+    - restart postfix
+  no_log: True
+
+- name: Configure NTP
+  template:
+    src: ntp/ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart ntp daemon

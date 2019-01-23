@@ -13,7 +13,7 @@ platforms:
       provision_command:
         - yum install -y epel-release
         - yum install -y python2-pip rsyslog initscripts
-        - pip install ansible==2.4.2.0
+        - pip install ansible==2.7.4
         - sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config
         - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
         - sed -i 's/GSSAPIAuthentication yes/GSSAPIAuthentication no/g' /etc/ssh/sshd_config

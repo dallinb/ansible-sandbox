@@ -5,7 +5,7 @@ script:
 
 install:
 	bundle install
-	pip install -r requirements.txt
+	pip install -Ur requirements.txt
 
 before_script:
 	ansible --version

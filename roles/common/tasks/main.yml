@@ -4,8 +4,8 @@
   package:
     name: "{{ item }}"
   with_items:
-    - ntp-4.2.6p5-25.el7.centos.2.x86_64
-    - postfix-2.10.1-6.el7.x86_64
+    - ntp
+    - postfix
 
 - name: Configure users
   user:

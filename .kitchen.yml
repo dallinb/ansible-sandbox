@@ -33,25 +33,15 @@ provisioner:
   require_pip: false
 
 verifier:
-  name: serverspec
-  sudo_path: true
+  name: inspec
 
 suites:
-  - name: apply
-    verifier:
-      patterns:
-        - spec/*_spec.rb
+  - name: default
     provisioner:
       playbook: site.yml
       idempotency_test: true
-    driver_config:
-      hostname: sandbox.local
-      instance_name: sandbox
 
   - name: check
     provisioner:
       ansible_check: true
       playbook: site.yml
-    driver_config:
-      hostname: sandbox.local
-      instance_name: sandbox

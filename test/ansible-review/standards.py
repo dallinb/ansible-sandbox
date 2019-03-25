@@ -1,3 +1,7 @@
+"""Standards for Ansible Review.
+
+https://github.com/willthames/ansible-review/blob/master/lib/ansiblereview/examples/standards.py
+"""
 import codecs
 import os
 import yaml
@@ -15,6 +19,7 @@ from ansiblelint.utils import parse_yaml_linenumbers
 
 
 def rolesfile_contains_scm_in_src(candidate, settings):
+    """Ensure that scm URI type is used."""
     result = Result(candidate.path)
     if candidate.path.endswith(".yml") and os.path.exists(candidate.path):
         try:
@@ -32,20 +37,26 @@ def rolesfile_contains_scm_in_src(candidate, settings):
 
 
 def files_should_have_actual_content(candidate, settings):
+    """Ensure that YAML files actually contain some data."""
     errors = []
     with codecs.open(candidate.path, mode='rb', encoding='utf-8') as f:
         content = yaml.safe_load(f.read())
     if not content:
-        errors = [Error(None, "%s appears to have no useful content" % candidate)]
+        errors = [
+                    Error(None,
+                          "%s appears to have no useful content" % candidate)
+        ]
     return Result(candidate.path, errors)
 
 
 def host_vars_exist(candidate, settings):
+    """Group variables are preferred over host variables."""
     return Result(candidate.path, [Error(None, "Host vars are generally "
                                          "not required")])
 
 
 def noop(candidate, settings):
+    """No operation."""
     return Result(candidate.path)
 
 

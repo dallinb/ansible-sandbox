@@ -1,0 +1,21 @@
+# Standards: 0.1
+---
+- name: 'Ansible Sandbox Playbook.'
+
+  gather_facts: no
+
+  hosts: all
+
+  pre_tasks:
+  - name: Gather some useful facts together
+    set_fact:
+      run_data:
+        ansible_check_mode: "{{ ansible_check_mode }}"
+        ansible_version: "{{ ansible_version }}"
+
+  - name: Display the useful facts.
+    debug:
+      var: run_data
+
+  roles:
+  - common

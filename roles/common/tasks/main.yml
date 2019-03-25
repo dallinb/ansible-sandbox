@@ -8,8 +8,8 @@
   retries: 10
   delay: 2
   with_items:
-    - ntp
-    - postfix
+  - ntp
+  - postfix
 
 - name: Configure users
   user:
@@ -25,9 +25,9 @@
     src: "postfix/{{ item }}.j2"
     dest: "/etc/postfix/{{ item }}"
   with_items:
-    - main.cf
+  - main.cf
   notify:
-    - restart postfix
+  - restart postfix
 
 - name: Email aliases (create/update)
   lineinfile:
@@ -35,11 +35,11 @@
     line: "{{ item.name }}: {{ item.email | default('/dev/null') }}"
     regexp: "^{{ item.name }}:"
   when:
-    - common_users is defined
-    - item.state is not defined or item.state == 'present'
+  - common_users is defined
+  - item.state is not defined or item.state == 'present'
   with_items: "{{ common_users }}"
   notify:
-    - restart postfix
+  - restart postfix
   no_log: True
 
 - name: Email aliases (delete)
@@ -48,12 +48,12 @@
     state: absent
     regexp: "^{{ item.name }}:"
   when:
-    - common_users is defined
-    - item.state is defined
-    - item.state == 'absent'
+  - common_users is defined
+  - item.state is defined
+  - item.state == 'absent'
   with_items: "{{ common_users }}"
   notify:
-    - restart postfix
+  - restart postfix
   no_log: True
 
 - name: Configure NTP
@@ -64,4 +64,4 @@
     group: root
     mode: 0644
   notify:
-    - restart ntp daemon
+  - restart ntp daemon

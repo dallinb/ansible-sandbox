@@ -1,7 +1,8 @@
+# Standards: 0.1
 ---
 - name: 'Ansible Sandbox Playbook.'
 
   hosts: all
 
   roles:
-    - common
+  - common

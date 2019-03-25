@@ -3,3 +3,4 @@
 .kitchen/
 .python-version
 Gemfile.lock
+molecule/default/pytestdebug.log

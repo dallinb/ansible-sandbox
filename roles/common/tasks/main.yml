@@ -9,7 +9,6 @@
   delay: 2
   with_items:
   - ntp
-  - postfix
 
 - name: Configure users
   user:
@@ -18,42 +17,6 @@
     state: "{{ item.state | default('present') }}"
   when: common_users is defined
   with_items: "{{ common_users }}"
-  no_log: True
-
-- name: Configure Postfix
-  template:
-    src: "postfix/{{ item }}.j2"
-    dest: "/etc/postfix/{{ item }}"
-  with_items:
-  - main.cf
-  notify:
-  - restart postfix
-
-- name: Email aliases (create/update)
-  lineinfile:
-    path: /etc/aliases
-    line: "{{ item.name }}: {{ item.email | default('/dev/null') }}"
-    regexp: "^{{ item.name }}:"
-  when:
-  - common_users is defined
-  - item.state is not defined or item.state == 'present'
-  with_items: "{{ common_users }}"
-  notify:
-  - restart postfix
-  no_log: True
-
-- name: Email aliases (delete)
-  lineinfile:
-    path: /etc/aliases
-    state: absent
-    regexp: "^{{ item.name }}:"
-  when:
-  - common_users is defined
-  - item.state is defined
-  - item.state == 'absent'
-  with_items: "{{ common_users }}"
-  notify:
-  - restart postfix
   no_log: True
 
 - name: Configure NTP
